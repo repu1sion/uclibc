@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Version: 0.9.33.2
-# Thu Oct 23 00:41:52 2014
+# Thu Oct 23 23:00:34 2014
 #
 # TARGET_alpha is not set
 TARGET_arm=y
@@ -218,7 +218,7 @@ UCLIBC_BUILD_NOEXECSTACK=y
 # Development/debugging options
 #
 CROSS_COMPILER_PREFIX="arm-uclinuxeabi-"
-UCLIBC_EXTRA_CFLAGS="-mthumb -march=armv7"
+UCLIBC_EXTRA_CFLAGS=""
 # DODEBUG is not set
 DODEBUG_PT=y
 # DOSTRIP is not set
