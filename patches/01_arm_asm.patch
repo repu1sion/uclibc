@@ -1,0 +1,13 @@
+--- /mnt/repos/repos/github/nocturn_tools/uClibc/uClibc-0.9.33.2_orig/libc/sysdeps/linux/arm/bits/arm_asm.h
++++ /mnt/repos/repos/github/nocturn_tools/uClibc/uClibc-0.9.33.2/libc/sysdeps/linux/arm/bits/arm_asm.h
+@@ -3,8 +3,10 @@
+ #define _ARM_ASM_H
+ 
+ #ifdef __thumb2__
++# ifdef __ASSEMBLER__
+ .thumb
+ .syntax unified
++# endif /* __ASSEMBLER__ */
+ #define IT(t, cond) i##t cond
+ #else
+ /* XXX: This can be removed if/when we require an assembler that supports

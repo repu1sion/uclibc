@@ -1,0 +1,52 @@
+--- /mnt/repos/repos/github/nocturn_tools/uClibc/uClibc-0.9.33.2_orig/libpthread/linuxthreads.old/sysdeps/arm/pt-machine.h
++++ /mnt/repos/repos/github/nocturn_tools/uClibc/uClibc-0.9.33.2/libpthread/linuxthreads.old/sysdeps/arm/pt-machine.h
+@@ -32,12 +32,36 @@
+    machines.  Unfortunately we have no way to detect this at compile
+    time; let's hope nobody tries to use one.  */
+ 
++
++PT_EI long int ldrex(int *spinlock);
++PT_EI long int ldrex(int *spinlock)
++{
++	long int ret;
++	__asm__ __volatile__(
++		"ldrex %0, [%1]\n"
++		: "=r"(ret)
++		: "r"(spinlock) : "memory");
++	return ret;
++}
++
++PT_EI long int strex(int val, int *spinlock);
++PT_EI long int strex(int val, int *spinlock)
++{
++	long int ret;
++	__asm__ __volatile__(
++		"strex %0, %1, [%2]\n"
++		: "=r"(ret)
++		: "r" (val), "r"(spinlock) : "memory");
++	return ret;
++}
++
++
+ /* Spinlock implementation; required.  */
+ PT_EI long int testandset (int *spinlock);
+ PT_EI long int testandset (int *spinlock)
+ {
+   register unsigned int ret;
+-
++/*
+ #if defined(__thumb__)
+   void *pc;
+   __asm__ __volatile__(
+@@ -56,6 +80,11 @@
+ 		       : "=r"(ret)
+ 		       : "0"(1), "r"(spinlock));
+ #endif
++*/
++
++  do {
++	  ret = ldrex(spinlock);
++  } while (strex(1, spinlock));
+ 
+   return ret;
+ }
