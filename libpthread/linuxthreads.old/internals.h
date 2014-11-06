@@ -352,7 +352,7 @@ extern size_t __pagesize;
 /* Size of the thread manager stack. The "- 32" avoids wasting space
    with some malloc() implementations. */
 #ifndef THREAD_MANAGER_STACK_SIZE
-#define THREAD_MANAGER_STACK_SIZE  (2 * __pagesize - 32)
+#define THREAD_MANAGER_STACK_SIZE  (4 * __pagesize - 32)
 #endif
 
 /* The base of the "array" of thread stacks.  The array will grow down from
